@@ -1,0 +1,26 @@
+{
+  "name": "album-app",
+  "version": "1.0.0",
+  "description": "Aplicação web de álbum de fotos com React no Front End e Express no Back End.",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "keywords": [
+    "react",
+    "express",
+    "node",
+    "front-end",
+    "back-end"
+  ],
+  "author": "Pedro Henrique",
+  "license": "ISC",
+  "repository": "https://github.com/pedrohsmesquita/album-app",
+  "dependencies": {
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "mongoose": "^6.9.0",
+    "passport": "^0.6.0",
+    "passport-jwt": "^4.0.1"
+  }
+}

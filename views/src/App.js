@@ -1,8 +1,10 @@
 import { useState, useEffect } from 'react';
 import Login from './components/Login.js';
+import Signup from './components/Signup.js';
 
 export default function App() {
     const [isDarkMode, setIsDarkmode] = useState(false);
+    const [isRegistration, setIsRegistration] = useState(false);
 
     useEffect(() => {
         window.matchMedia('(prefers-color-scheme: dark')
@@ -22,7 +24,11 @@ export default function App() {
 
     return (
         <div>
-            <Login isDarkMode={isDarkMode}/>
+            {isRegistration ? (
+                <Signup isDarkMode={isDarkMode} setRegistration={setIsRegistration}/>
+            ) : (
+                <Login isDarkMode={isDarkMode} setRegistration={setIsRegistration}/>
+            )}
         </div>
     );
 }

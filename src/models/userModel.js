@@ -22,8 +22,7 @@ const userSchema = new mongoose.Schema({
         default: 'Pending'
     },
     confirmationCode: {
-        type: String,
-        unique: true
+        type: String
     },
     images: {
         type: [String]

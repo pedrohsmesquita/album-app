@@ -1,5 +1,6 @@
 const User = require('./models/userModel.js');
 const jwt = require('jsonwebtoken');
+const { sendConfirmationEmail } = require('./mailService.js');
 
 exports.signup = async (req, res, next) => {
     try {
@@ -22,3 +23,20 @@ exports.signup = async (req, res, next) => {
         console.error(err);
     }
 };
+
+exports.verifyUser = async (req, res, next) => {
+    try {
+        const user = await User.findOne({confirmationCode: req.params.confirmationCode});
+        if (!user) {
+            return res.status(404).send({message: 'Usuário não encontrado.'});
+        }
+        user.status = 'Active';
+        user.confirmationCode = '';
+        await user.save();
+        // const test = await user.save(); 
+        // res.status(200).json({user: test});
+    } catch (err) {
+        console.error(err);
+        return res.status(500).send({message: err});
+    }
+}

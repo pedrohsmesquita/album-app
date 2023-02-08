@@ -1,17 +1,18 @@
 require('dotenv').config();
 const express = require('express');
+const mongo = require('./src/database.js');
+const routes = require('./src/routes.js')
 
 const app = express();
+mongo.init(app);
 
 app.use(express.json());
 app.use(express.urlencoded({extended: false}));
 
-// Teste para checar a conexão com front end e back end
-app.post('/api/login', (req, res) => {
-    console.log(req.body.email, req.body.password);
-    res.send('Hello world!');
-});
+routes(app);
 
-app.listen(process.env.PORT || 3001, () => {
-    console.log("Server is listening.");
+app.on('ready', () => {
+    app.listen(process.env.PORT || 3001, () => {
+        console.log("Server is listening.");
+    });
 });

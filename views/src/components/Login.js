@@ -7,17 +7,11 @@ export default function Login({isDarkMode, setRegistration}) {
     const [password, setPassword] = useState('');
     const inputClass = isDarkMode ? `${LoginCSS.inputField} ${LoginCSS.darkMode}` : `${LoginCSS.inputField}`;
 
-    async function handleSubmit(e) {
-        e.preventDefault();
-        const response = await postLogin({email: email, password: password});
-        console.log(response);
-    }
-
     return (
         <div className={LoginCSS.mainLogin}>
             <div className={isDarkMode ? `${LoginCSS.cardLogin} ${LoginCSS.darkMode}` : `${LoginCSS.cardLogin}`}>
                 <h1>Entrar no Álbum</h1>
-                <form onSubmit={e => handleSubmit(e)}>
+                <form>
                     <div className={LoginCSS.textfield}>
                         <label htmlFor='email' className={LoginCSS.labelField}>E-mail</label>
                         <input

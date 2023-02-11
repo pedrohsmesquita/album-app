@@ -65,6 +65,11 @@ form > button:hover {
     transition: 0.5s;
 }
 
+form > button:disabled {
+    cursor: not-allowed;
+    background-color: #3f76bf86;
+}
+
 .darkMode {
     background-color: var(--background-color-dark);
     color: var(--text-color-dark);

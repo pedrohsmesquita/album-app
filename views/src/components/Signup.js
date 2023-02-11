@@ -1,5 +1,6 @@
 import { useState } from 'react';
-import { postLogin } from '../services/UserServices';
+import { postSignup } from '../services/UserServices.js';
+import PosSignup from './PosSignup.js';
 import SignupCSS from '../styles/signup.module.css';
 
 export default function Signup({isDarkMode, setRegistration}) {
@@ -7,14 +8,25 @@ export default function Signup({isDarkMode, setRegistration}) {
     const [password, setPassword] = useState('');
     const [name, setName] = useState('');
     const [passwordLen, setPasswordLen] = useState(0);
+    const [submitStatus, setSubmitStatus] = useState('send');
     const inputClass = isDarkMode ? `${SignupCSS.inputField} ${SignupCSS.darkMode}` : `${SignupCSS.inputField}`;
     const passwordLenBool = passwordLen > 0 && passwordLen < 6;
 
     async function handleSubmit(e) {
         e.preventDefault();
-        const response = await postLogin({email: email, password: password});
-        console.log(response);
+        setSubmitStatus('sending');
+        const response = await postSignup({email: email, name: name, password: password});
+        if (response.status === 409) {
+            alert(`${response.res.message}`);
+            setSubmitStatus('send');
+        } else if (response.status == 201)
+            setSubmitStatus('sent');
+        else
+            setSubmitStatus('send');
     }
+
+    if (submitStatus === 'sent')
+        return (<PosSignup isDarkMode={isDarkMode}/>);
 
     return (
         <div className={SignupCSS.mainSignup}>
@@ -63,7 +75,8 @@ export default function Signup({isDarkMode, setRegistration}) {
                         />
                         {passwordLenBool && <p className={SignupCSS.passwordLen}>A senha deve ter pelo menos 6 caracteres</p>}
                     </div>
-                    <button type="submit">Registrar</button>
+                    <button
+                    disabled={submitStatus === 'sending' ? true : false} type="submit">Registrar</button>
                 </form>
                 <p>Já tem uma conta? <span onClick={() => setRegistration(false)}>Entre aqui!</span></p>
             </div>

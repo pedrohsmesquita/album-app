@@ -18,11 +18,10 @@ exports.sendConfirmationEmail = async (name, receiverEmail, confirmationCode) =>
         <p>Este é um e-mail automático, <b>não responda este e-mail</b>.</p>
         `
     }
-    console.log('Sending mail to: ' + receiverEmail);
 
     try {
         await transporter.sendMail(emailContent);
     } catch (err) {
-        console.error(err);
+        next(err);
     }
 }

@@ -1,7 +1,8 @@
-const { signup, verifyUser } = require("./auth.js")
+const { signup, verifyUser } = require("./auth.js");
+const { tryCatch } = require("./utils/tryCatch.js");
 
 module.exports = (app) => {
-    app.post('/auth/signup', signup)
+    app.post('/auth/signup', tryCatch(signup))
 
-    app.get('/auth/signup/confirm/:confirmationCode', verifyUser);
+    app.post('/auth/signup/confirm/:confirmationCode', tryCatch(verifyUser));
 }

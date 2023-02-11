@@ -1,6 +1,9 @@
 import { useState, useEffect } from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Login from './components/Login.js';
+import ConfirmationPage from './pages/ConfirmationPage.js';
 import Signup from './components/Signup.js';
+import NotFound from './components/NotFound.js';
 
 export default function App() {
     const [isDarkMode, setIsDarkmode] = useState(false);
@@ -23,12 +26,16 @@ export default function App() {
     }
 
     return (
-        <div>
-            {isRegistration ? (
-                <Signup isDarkMode={isDarkMode} setRegistration={setIsRegistration}/>
-            ) : (
-                <Login isDarkMode={isDarkMode} setRegistration={setIsRegistration}/>
-            )}
-        </div>
+        <Router>
+            <Routes>
+                <Route path='/' element={isRegistration ? (
+                    <Signup isDarkMode={isDarkMode} setRegistration={setIsRegistration}/>
+                ) : (
+                    <Login isDarkMode={isDarkMode} setRegistration={setIsRegistration}/>
+                )}/>
+                <Route path='/auth/signup/confirm/:confirmationCode' element={<ConfirmationPage isDarkMode={isDarkMode}/>}/>
+                <Route path='*' element={<NotFound />}/>
+            </Routes>
+        </Router>
     );
 }

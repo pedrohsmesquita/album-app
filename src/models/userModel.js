@@ -15,32 +15,21 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    createdAt: Date,
-    status: {
-        type: String,
-        enum: ['Pending', 'Active'],
-        default: 'Pending'
-    },
-    confirmationCode: {
-        type: String
+    isActive: {
+        type: Boolean,
+        required: true
     },
     images: {
         type: [String]
+    },
+    createdAt: {
+        type: Date,
+        required: true
     }
-});
-
-userSchema.pre('save', async function(next) {
-    const now = Date.now();
-    const hash = await bcrypt.hash(this.password, 10);
-
-    this.createdAt = now;
-    this.password = hash;
-
-    next();
 });
 
 userSchema.methods.isValidPassword = async function(password) {
     return bcrypt.compare(password, this.password);
 }
 
-module.exports = mongoose.model('user', userSchema);
+module.exports = mongoose.model('users', userSchema);

@@ -1,0 +1,17 @@
+.main {
+    width: 100vw;
+    height: 100vh;
+}
+
+.container {
+    padding: 1rem;
+}
+
+.title {
+    margin-bottom: 0.5rem;
+}
+
+.darkMode {
+    background-color: var(--background-color-dark);
+    color: var(--text-color-dark);
+}

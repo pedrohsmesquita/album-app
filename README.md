@@ -4,4 +4,4 @@ Este é um projeto pessoal criado com o objetivo de pôr em prática os meus con
 - O usuário poderá acessár suas fotos de qualquer computador com acesso a internet.
 - O usuário terá acesso apenas a suas respectivas fotos
 
-Este projeto será feito utilizando o `react` para o Front End e `express` para Back End. O banco de dados escolhido foi o MongoDB, utilizando a biblioteca `mongoose`. A autenticação será local e utilizará de JWT em Cookies com o `passport` e `passport-jwt`
+Este projeto será feito utilizando o `react` para o Front End e `express` para Back End. O banco de dados escolhido foi o MongoDB, utilizando a biblioteca `mongoose`.

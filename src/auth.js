@@ -50,7 +50,7 @@ exports.login = async (req, res) => {
         return res.status(200).json({message: 'Logado com sucesso'});
     }
     if (Object.keys(req.body).length === 0)
-        throw new AppHandler(401, 'É necessário as credenciais para fazer login');
+        return res.status(401).json({message: 'Insira as credenciais novamente', code: 102});
     const user = await User.findOne({email: req.body.email});
     if (!user || !user.isValidPassword(req.body.password))
         throw new AppHandler(401, 'E-mail ou senha incorreto');

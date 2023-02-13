@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { postSignup } from '../services/UserServices.js';
 import PosSignup from './PosSignup.js';
 import SignupCSS from '../styles/signup.module.css';
@@ -24,9 +24,16 @@ export default function Signup({isDarkMode, setRegistration}) {
         else
             setSubmitStatus('send');
     }
-
-    if (submitStatus === 'sent')
+    useEffect(() => {
+        if (submitStatus === 'sent') {
+            const timer = setTimeout(() => setRegistration(false), 10000);
+            return () => clearTimeout(timer);
+        }
+    })
+    
+    if (submitStatus === 'sent') {
         return (<PosSignup isDarkMode={isDarkMode}/>);
+    }
 
     return (
         <div className={SignupCSS.mainSignup}>

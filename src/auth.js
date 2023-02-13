@@ -39,29 +39,17 @@ exports.verifyUser = async (req, res) => {
 };
 
 exports.login = async (req, res) => {
-    if (req.cookies.APP_CREDENTIALS && req.cookies.APP_SIGNATURE) {
-        jwt.verify(`${req.cookies.APP_CREDENTIALS}.${req.cookies.APP_SIGNATURE}`,
-                    process.env.SECRET, {active: true});
-        res.cookie('APP_CREDENTIALS', req.cookies.APP_CREDENTIALS, {
-            secure: process.env.NODE_ENV !== 'development',
-            maxAge: 1000 * 60 * 5,
-            sameSite: 'strict'
-        });
-        return res.status(200).json({message: 'Logado com sucesso'});
-    }
-    if (Object.keys(req.body).length === 0)
-        return res.status(401).json({message: 'Insira as credenciais novamente', code: 102});
     const user = await User.findOne({email: req.body.email});
     if (!user || !user.isValidPassword(req.body.password))
-        throw new AppHandler(401, 'E-mail ou senha incorreto');
-    const token = jwt.sign({active: true}, process.env.SECRET, {
+        throw new AppHandler(401, 'E-mail ou senha incorretos');
+    const token = jwt.sign({}, process.env.SECRET, {
         subject: user._id.toString(),
         expiresIn: 3600 * 24
     });
     const tokenSplit = token.split('.');
     res.cookie('APP_CREDENTIALS', `${tokenSplit[0]}.${tokenSplit[1]}`, {
         secure: process.env.NODE_ENV !== 'development',
-        maxAge: 1000 * 60 * 5,
+        maxAge: 1000 * 60 * 30,
         sameSite: 'strict'
     });
     res.cookie('APP_SIGNATURE', tokenSplit[2], {
@@ -70,4 +58,15 @@ exports.login = async (req, res) => {
         sameSite: 'strict'
     });
     return res.status(200).json({message: 'Logado com sucesso'});
-}
+};
+
+exports.ensureAuthentication = async (req, res) => {
+    const token = jwt.verify(`${req.cookies.APP_CREDENTIALS}.${req.cookies.APP_SIGNATURE}`,
+                process.env.SECRET);
+    res.cookie('APP_CREDENTIALS', req.cookies.APP_CREDENTIALS, {
+        secure: process.env.NODE_ENV !== 'development',
+        maxAge: 1000 * 60 * 30,
+        sameSite: 'strict'
+    });
+    return res.status(200).json({message: 'Logado com sucesso'});
+};

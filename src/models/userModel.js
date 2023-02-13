@@ -19,6 +19,9 @@ const userSchema = new mongoose.Schema({
         type: Boolean,
         required: true
     },
+    profilePicture: {
+        type: String
+    },
     images: {
         type: [String]
     },
@@ -29,7 +32,7 @@ const userSchema = new mongoose.Schema({
 });
 
 userSchema.methods.isValidPassword = async function(password) {
-    return bcrypt.compare(password, this.password);
-}
+    return await bcrypt.compare(password, this.password);
+};
 
 module.exports = mongoose.model('users', userSchema);

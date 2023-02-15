@@ -3,7 +3,7 @@ import { postSignup } from '../services/UserServices.js';
 import PosSignup from './PosSignup.js';
 import SignupCSS from '../styles/signup.module.css';
 
-export default function Signup({isDarkMode, setRegistration}) {
+export default function Signup({isDarkMode, setStatus}) {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [name, setName] = useState('');
@@ -26,7 +26,7 @@ export default function Signup({isDarkMode, setRegistration}) {
     }
     useEffect(() => {
         if (submitStatus === 'sent') {
-            const timer = setTimeout(() => setRegistration(false), 10000);
+            const timer = setTimeout(() => setStatus('signin'), 10000);
             return () => clearTimeout(timer);
         }
     })
@@ -39,7 +39,7 @@ export default function Signup({isDarkMode, setRegistration}) {
         <div className={SignupCSS.mainSignup}>
             <div className={isDarkMode ? `${SignupCSS.cardSignup} ${SignupCSS.darkMode}` : `${SignupCSS.cardSignup}`}>
                 <h1>Registrar no Álbum</h1>
-                <form onSubmit={e => handleSubmit(e)}>
+                <form onSubmit={e => handleSubmit(e)} className={SignupCSS.form}>
                     <div className={SignupCSS.textfield}>
                         <label htmlFor='email' className={SignupCSS.labelField}>E-mail</label>
                         <input
@@ -85,7 +85,7 @@ export default function Signup({isDarkMode, setRegistration}) {
                     <button
                     disabled={submitStatus === 'sending' ? true : false} type="submit">Registrar</button>
                 </form>
-                <p>Já tem uma conta? <span onClick={() => setRegistration(false)}>Entre aqui!</span></p>
+                <p>Já tem uma conta? <span onClick={() => setStatus('signin')}>Entre aqui!</span></p>
             </div>
         </div>
     );

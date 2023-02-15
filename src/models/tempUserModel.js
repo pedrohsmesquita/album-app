@@ -18,10 +18,6 @@ const tempUserSchema = new mongoose.Schema({
     createdAt: {
         type: Date,
     },
-    isActive: {
-        type: Boolean,
-        default: false
-    },
     confirmationCode: {
         type: String
     },

@@ -31,6 +31,7 @@ exports.verifyUser = async (req, res) => {
         password: tempUser.password,
         isActive: true,
         images: [],
+        profilePicture: '',
         createdAt: tempUser.createdAt
     });
     await newUser.save();
@@ -57,7 +58,7 @@ exports.login = async (req, res) => {
         httpOnly: true,
         sameSite: 'strict'
     });
-    return res.status(200).json({message: 'Logado com sucesso'});
+    return res.status(200).json({message: 'Logado com sucesso', user: {name: user.name, profilePicture: user.profilePicture}});
 };
 
 exports.ensureAuthentication = async (req, res) => {

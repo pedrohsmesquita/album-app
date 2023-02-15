@@ -1,0 +1,130 @@
+.panel {
+    width: 350px;
+    height: 100%;
+    background-image: linear-gradient(
+        45deg,
+        #124991,
+        #3f76bf
+        );
+    transform: translateX(-99.9%);
+    transition: all 0.4s;
+}
+
+.panelOpen {
+    transform: translatex(0%);
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 3rem 1rem;
+    height: 100%;
+}
+
+.profilePicture > img {
+    border-radius: 50%;
+}
+
+.user {
+    margin-top: 1rem;
+    position: relative;
+    width: 100%;
+    height: 80%;
+}
+
+.userName {
+    font-size: 1rem;
+    text-align: center;
+    text-transform: uppercase;
+    color: #f3f3f3;
+}
+
+.configBox {
+    padding: 0.5rem 0 0 0;
+    width: 35px;
+    height: 45px;
+    border-radius: 2rem;
+    transition: 0.1s;
+}
+
+.configBoxOpen {
+    width: 100%;
+    height: 77%;
+    background-color: rgba(0, 0, 0, 0.150);
+}
+
+.settingsIcon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 35px;
+    width: 35px;
+    background-color: rgba(0, 0, 0, 0.075);
+    border-radius: 2rem;
+    transition: 0.5s;
+}
+
+.settingsIcon > svg {
+    fill: #fefefe;
+}
+
+.settingsIcon:hover {
+    background-color: rgba(0, 0, 0, 0.150);
+    width: 50px;
+    height: 35px;
+    cursor: pointer;
+}
+
+.settingsIconOpen {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 35px;
+    width: 35px;
+    border-radius: 2rem;
+    background-color: rgba(0, 0, 0, 0);
+    width: 50px;
+    height: 35px;
+    cursor: pointer;
+}
+
+.settingsIconOpen > svg {
+    fill: #fefefea4;
+}
+
+.settingsIcon:hover > svg {
+    transition: 0.5s;
+    fill: #fefefea4;
+}
+
+.separator {
+    margin: 1.5rem 0;
+}
+
+.logOut {
+    height: 45px;
+    width: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fefefe;
+    position: absolute;
+    bottom: 0;
+    border-radius: 2rem;
+    background-color: rgba(0, 0, 0, 0.075);
+    transition: 0.5s;
+}
+
+.logOut > img {
+    margin-right: 0.2rem;
+}
+
+.logOut:hover {
+    cursor: pointer;
+    width: 80px;
+    height: 50px;
+    fill: #fefefea4;
+    color: #fefefea4;
+    background-color: rgba(0, 0, 0, 0.150);
+}
